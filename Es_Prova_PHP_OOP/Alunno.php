@@ -1,16 +1,24 @@
 <?php
-class Alunno{
+class Alunno implements JsonSerializable{
     protected $nome;
     protected $cognome;
     protected $eta;
+    protected $voto = [];
+    protected $indirizzo;
 
-    public function __construct($nome, $cognome, $eta)
-    {
+    public function __construct($nome, $cognome, $eta){
         $this->nome = $nome;
         $this->cognome = $cognome;
         $this->eta = $eta;
     }
 
+    public function jsonSerialize(): array{
+      return[
+        'nome' => $this->nome,
+        'cognome' => $this->cognome,
+        'eta' => $this->eta
+      ];
+    }
 
     public function getNome() {
       return $this->nome;
@@ -33,11 +41,19 @@ class Alunno{
       $this->eta = $value;
     }
 
-
-    public function stampaAttributi(){
-        echo "<p>Nome: $this->nome</p>";
-        echo"<p>Cognome: $this->cognome</p>";
-        echo"<p>Eta: $this->eta</p>";
+    public function setVoto(Voto $voto){
+      $this->voto[] = $voto;
     }
+
+    public function setIndirizzo(Indirizzo $indirizzo){
+      $this->indirizzo = $indirizzo;
+    }
+
+    // public function stampaAttributi(){
+    //     echo "Nome:" => $this->nome;
+    //     echo"Cognome:" => $this->cognome;
+    //     echo"Eta:" =>$this->eta;
+    //     echo "Voti:" => $this ->voto;
+    // }
 }
 ?>
